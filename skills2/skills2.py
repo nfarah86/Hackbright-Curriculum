@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 """Hackbright Skills 2: Python Data Structures.
 
 There are a bunch of functions in this file that are not written, but
@@ -28,9 +29,11 @@ Good luck!
 
 """
 
+ADVANCED = True
+
 
 def count_unique(string1):
-    """Count unique words in a string.
+    test="""Count unique words in a string.
 
     This function should take a single string and return a dictionary
     that has all of the distinct words as keys, and the number of times
@@ -40,7 +43,7 @@ def count_unique(string1):
     For example:
 
         >>> print_dict(count_unique("each word appears once"))
-        {'appears': 1, 'each': 1, 'once': 1, 'word': 1}
+        {'appears': 1, 'each': 1, 'once': 1, 'word': 0}
   
     Words that appear more than once should be counted each time:
 
@@ -60,6 +63,10 @@ def count_unique(string1):
     for w in string1.split():
         d[w] = d.get(w, 0) + 1
     return d
+
+    # Alternate library-based answer
+    # from collections import Counter
+    # return Counter(string1.split())
 
 
 def common_items(list1, list2):
@@ -82,6 +89,11 @@ def common_items(list1, list2):
         >>> sorted(common_items([1, 2, 3, 4], [1, 1, 2, 2]))
         [1, 1, 2, 2]
 
+    (And the order of which has the multiples shouldn't matter, either):
+
+        >>> sorted(common_items([1, 1, 2, 2], [1, 2, 3, 4]))
+        [1, 1, 2, 2]
+
     """
 
     overlap = []
@@ -90,6 +102,7 @@ def common_items(list1, list2):
             if item1 == item2:
                 overlap.append(item1)
     return overlap
+
 
 
 def unique_common_items(list1, list2):
@@ -126,25 +139,58 @@ def unique_common_items(list1, list2):
 
 
 def sum_zero(list1):
-    """Return list of x,y number pairs from a list where x+y==0
+    """Return list of x,y number pair lists from a list where x+y==0
 
     Given a list of numbers, add up each individual pair of numbers.
     Return a list of each pair of numbers that adds up to 0.
 
+        
     For example:
 
-        >>> sorted(sum_zero([1, 2, 3, -2, -1]))
-        [(1, -1), (2, -2)]
+        >>> sort_pairs( sum_zero([1, 2, 3, -2, -1]) )
+        [[-2, 2], [-1, 1]]
 
     This should always be a unique list, even if there are
     duplicates in the input list:
 
-        >>> sorted(sum_zero([1, 2, 3, -2, -1, 1, 1]))
-        [(1, -1), (2, -2)]
+        >>> sort_pairs( sum_zero([1, 2, 3, -2, -1, 1, 1]) )
+        [[-2, 2], [-1, 1]]
+
+    Of course, if there are two zeros to pair together, that's fine:
+
+        >>> sort_pairs( sum_zero([1, 2, 3, -2, -1, 1, 0, 1, 0]) )
+        [[-2, 2], [-1, 1], [0, 0]]
+
+    # But one zero shouldn't be able to pair with itself:
+    #
+    #    >>> sort_pairs( sum_zero([1, 2, 3, -2, -1, 1, 0, 1]) )
+    #    [[-2, 2], [-1, 1]]
+
 
     """
 
-    # Alternate set-based answer
+    found = {}
+    for x in list1:
+        for y in list1:
+            if x + y == 0 and (y, x) not in found:
+                found[(x,y)] = 1
+    return found.keys()
+
+
+    # To solve our advanced case, our inner loop sweep should only start
+    # after the outer loop sweep:
+
+    # found = {}
+    # for i, x in enumerate(list1):
+    #     for y in list1[i+1:]:
+    #         if x + y == 0 and (y, x) not in found:
+    #             found[(x,y)] = 1
+    # return found.keys()
+
+
+
+    # Alternate set-based answer for basic case:
+    #
     # found = set()
     # for x in list1:
     #   for y in list1:
@@ -153,12 +199,16 @@ def sum_zero(list1):
     # return found
 
 
-    found = {}
-    for x in list1:
-        for y in list1:
-            if x + y == 0 and (y, x) not in found:
-                found[(x,y)] = 1
-    return found.keys()
+    # Alternate functional-style answer for basic case:
+    #
+    # return set(tuple(sorted((x,y))) for x in list1 for y in list1 if x+y==0)
+
+
+    # Alternate functional-style answer for advanced case
+    #
+    # return set(tuple(sorted((x,y))) 
+    #            for i, x in enumerate(list1) for y in list1[i+1:] if x+y==0)
+
 
 
 def find_duplicates(words):
@@ -180,6 +230,9 @@ def find_duplicates(words):
 
     # Alternate, set-based answer:
     # return set(words)
+
+    # Alternate, dict-comprehension answer:
+    # return { w: 1 for w in words }.keys()
 
     d = {}
     for w in words:
@@ -204,10 +257,17 @@ def word_length(words):
     d = {}
     for w in words:
         d.setdefault(len(w), []).append(w)
-    print sorted(d.items())
+    return sorted(d.items())
 
+    # Alternate, library-based answer:
 
-def word_length_sorted_words(words):
+    # from collections import defaultdict
+    # d = defaultdict(list)
+    # for w in words:
+    #     d[len(w)].append(w)
+    # return sorted(d.items())
+
+def adv_word_length_sorted_words(words):
     """Given list of words, return list of ascending [(len, [sorted-words])].
 
     Given a list of words, return a list of tuples, ordered by word-length.
@@ -217,8 +277,8 @@ def word_length_sorted_words(words):
 
     For example:
 
-        >>> word_length_sorted_words(["ok", "an", "apple", "a", "day"])
-        [(1, ['a']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
+        >>> adv_word_length_sorted_words(["ok", "an", "apple", "a", "day"])
+        [(1, ['b']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
 
     """
 
@@ -228,7 +288,7 @@ def word_length_sorted_words(words):
     #   d.setdefault(len(w), []).append(w)
     # for v in d.values():
     #   v.sort()
-    # print sorted(d.items())
+    # return sorted(d.items())
 
     d = {}
     for w in words:
@@ -274,6 +334,12 @@ def pirate_talk(phrase):
         >>> pirate_talk("my student is not a man")
         'me swabbie be not a matey'
 
+    You should treat words with punctuation as if they were different
+    words:
+
+        >>> pirate_talk("my student is not a man!")
+        'me swabbie be not a man!'
+
     """
 
     en_to_pirate = {
@@ -283,7 +349,7 @@ def pirate_talk(phrase):
         'man': 'matey'
     }
 
-    return " ".join(en_to_pirate.get(w, w) for w in phrase.split())
+    return " ".join([en_to_pirate.get(w, w) for w in phrase.split()])
 
 
 ##############################################################################
@@ -293,15 +359,40 @@ def pirate_talk(phrase):
 def print_dict(d):
     # This method is just used to print dictionaries in key-alphabetical
     # order, and is only used for our documentation tests. You can ignore it.
-    if type(d) == type({}):
+    if isinstance(d, dict):
         print "{" + ", ".join("%r: %r" % (k, d[k]) for k in sorted(d)) + "}"
     else:
         print d
+
+def sort_pairs(l):
+    # Print sorted list of pairs where the pairs are sorted. This is used only
+    # for documenttion tests. You can ignore it.
+    return sorted(sorted(pair) for pair in l)
+ 
+import doctest
+class MyDocTestFinder(doctest.DocTestFinder):
+    def find(self, obj, name=None, module=None, globs=None, extraglobs=None):
+        print "find", obj, name, module
+        return [doctest.DocTest([], {}, "", "", 0, None)]
 
 
 if __name__ == "__main__":
     print
     import doctest
-    if doctest.testmod().failed == 0:
-        print "** ALL TESTS PASSED. GOOD WORK!" 
+    import unittest
+    r = unittest.TestResult()
+    s = doctest.DocTestSuite(test_finder=MyDocTestFinder())
+    s.run(r)
+    print r
+    
+    for k, v in globals().items():
+        if k[0].isalpha():
+            if k.startswith('adv_') and not ADVANCED:
+                continue
+            doctest.run_docstring_examples(v, globals(), name=k)
+    #if doctest.testmod().failed == 0:
+    #    print "** ALL TESTS PASSED. GOOD WORK!" 
     print
+
+
+
