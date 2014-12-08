@@ -278,7 +278,7 @@ def adv_word_length_sorted_words(words):
     For example:
 
         >>> adv_word_length_sorted_words(["ok", "an", "apple", "a", "day"])
-        [(1, ['b']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
+        [(1, ['a']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
 
     """
 
@@ -380,10 +380,10 @@ if __name__ == "__main__":
     print
     import doctest
     import unittest
-    r = unittest.TestResult()
-    s = doctest.DocTestSuite(test_finder=MyDocTestFinder())
-    s.run(r)
-    print r
+    #r = unittest.TestResult()
+    #s = doctest.DocTestSuite(test_finder=MyDocTestFinder())
+    #s.run(r)
+    #print r
     
     for k, v in globals().items():
         if k[0].isalpha():
