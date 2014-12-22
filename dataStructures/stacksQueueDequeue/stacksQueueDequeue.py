@@ -104,38 +104,6 @@ def convertDecToBase(decNum, base):
         string = string + digits[stack.pop()]
     return string
 
-# def infixPostfix(stringExpression):
-#   prec = {}  #add the operators to the dictionary
-#   prec['*'] = 3
-#   prec['/'] = 3
-#   prec['+'] = 2
-#   prec['-'] = 2
-#   prec['('] = 1
-
-#   opStack = Stack() #create an instance of Stack
-#   postfixList = [] #create list
-#   tokenList = stringExpression.split() #split returns a list and breaks up string by each character
-#   print tokenList
-#   for token in tokenList:
-#       print str(token) + " this is a token" 
-#       if token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" or token in "0123456789":
-#           postfixList.append(token) #append characters in new list bc there could be operators;
-#           #wants to separate operators from operands
-#           print postfixList
-#           print "this is the list"
-#       elif token == '(':
-#           opStack.push(token) #push ( to the stack, sep. from chars/nums
-#       elif token == ')':
-#           topToken = opStack.pop() #if you have a closing paran. pop most recent stack == (
-#           while topToken != '(':
-#               postfixList.append(topToken)
-#               topToken = opStack.pop()
-#       else:
-#           while (not opStack.isEmpty()) and (prec[opStack.peek()] >= prec[token]):
-#               postfixList.append(opStack.pop())
-#               print postfixList
-#               print "this is the bottom of list"
-#           opStack.push(token)
 
 def infixToPostfix(infixexpr):
     prec = {}
@@ -163,7 +131,7 @@ def infixToPostfix(infixexpr):
             while topToken != '(': #if the stack is not open '('
                 postfixList.append(topToken) #append what you popped '*+-/'
                 print postfixList
-                print "1st while"
+                print "1st while "
                 topToken = opStack.pop() #keep removing until '(' is reach which makes while = False
                 print topToken
                 print "while loop"
@@ -194,10 +162,34 @@ print convertDecToBase(256,16)
 print " ----------"
 
 print infixToPostfix("( A * B + C * D )")
+print "-----------"
 
 
+def postfixEval(postfixExpr):
+    operandStack = Stack()
+    tokenList = postfixExpr.split()
 
-# testEqual(revstring('apple'), 'elppa')
-# testEqual(revstring('x'), 'x')
-# testEqual(revstring('123456'), '654321')
+    for token in tokenList:
+        if token in "0123456789":
+            operandStack.push(int(token))
+        else:
+            print token
+            operand2 = operandStack.pop()
+            operand1 = operandStack.pop()
+            result = doMath(token, operand1, operand2)
+            operandStack.push(result)
+    return operandStack.pop()
 
+def doMath(op, op1, op2):
+    if op == "*":
+        return op1 * op2
+    elif op == "/":
+        return op1 / op2
+    elif op == "+":
+        return op1 + op2
+    elif op =="-":
+        return op1 - op2
+    else:
+        return 0
+
+print postfixEval('7 8 + 3 2 + /')
