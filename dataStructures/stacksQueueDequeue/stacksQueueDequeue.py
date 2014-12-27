@@ -1,4 +1,5 @@
 from pythonds.basic.stack import Stack
+from pythonds.basic.queue import Queue
 
 def revstring(mystr):
     """ given a string, create another 
@@ -151,19 +152,6 @@ def infixToPostfix(infixexpr):
         print "last while"
     return " ".join(postfixList) #join list with spaces
 
-print revstring('apple')
-print revstring('x')
-print checkToSeeIfParanBalance('((()()))') #True
-print checkToSeeIfParanBalance('((())') #False
-print checkMultipleTypesBrackets('((]') #False 
-print checkMultipleTypesBrackets('()') #True
-print convertingIntToBinary(4)
-print convertDecToBase(256,16)
-print " ----------"
-
-print infixToPostfix("( A * B + C * D )")
-print "-----------"
-
 
 def postfixEval(postfixExpr):
     operandStack = Stack()
@@ -192,4 +180,107 @@ def doMath(op, op1, op2):
     else:
         return 0
 
-print postfixEval('7 8 + 3 2 + /')
+
+def infix(string):
+    stackInst = Stack()
+   
+    dictOperators = {}
+    dictOperators['+'] = 2
+    dictOperators['-'] = 2
+    dictOperators['*'] = 3
+    dictOperators['/'] = 3
+    dictOperators['('] = 1
+    dictOperators['A'] = 0
+
+    newList = []
+    listString =  string.split() #convert string to items in list
+    for i in listString:
+        if i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            newList.append(i)
+            indexBeforeParan = len(newList)
+            print indexBeforeParan
+            print newList
+            print "first if statement"
+        elif i == '(':
+            print i
+            print " this is '(' "
+            stackInst.push('(')
+            indexBeforeParan = len(newList)
+        elif i == ')':
+            topStackToken = stackInst.pop()
+            while i != '(':
+                newList.insert(0, i)
+                topStackToken = stackInst.pop()
+                print newList
+        else:
+            while not stackInst.isEmpty() and dictOperators[stackInst.peek()] >= dictOperators[i]:
+                newList = [stackInst.pop()] + newList
+            stackInst.push(i)
+
+        
+
+
+    while not stackInst.isEmpty():
+        newList.append(stackInst.pop())
+        newList = [i] + newList
+    return " ".join(newList)
+
+
+
+
+
+
+def hotPotato(nameList, num):
+    namelist = []
+    listname = []
+    simqueue = Queue()
+    for name in nameList:
+        simqueue.enqueue(name)
+
+    while simqueue.size() > 1:
+        for i in range(num):
+            simqueue.enqueue(simqueue.dequeue())
+        simqueue.dequeue()
+        namelist.append(simqueue.dequeue())
+
+    return namelist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# print revstring('apple')
+# print revstring('x')
+# print checkToSeeIfParanBalance('((()()))') #True
+# print checkToSeeIfParanBalance('((())') #False
+# print checkMultipleTypesBrackets('((]') #False 
+# print checkMultipleTypesBrackets('()') #True
+# print convertingIntToBinary(4)
+# print convertDecToBase(256,16)
+# print " ----------"
+
+# print infixToPostfix("( A * B + C * D )")
+# print "-----------"
+
+# print postfixEval('7 8 + 3 2 + /')
+
+# print hotPotato(["bill", "david", "susan", "jane", "kent", "brad"], 7)
+
+print infix('( A + B * C + D )')
+
+#print infix('( ( A + B ) * ( C + D ) )')
+
+

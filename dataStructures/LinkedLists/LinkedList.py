@@ -142,6 +142,13 @@ class UnorderedList:
 			current = current.next
 
 		return "dne"
+	def lengthList(self):
+		current = self.head
+		count = 0
+		while current != None:
+			count += 1
+			current.getNext()
+		return count
 
 
 	def printSelf(self):

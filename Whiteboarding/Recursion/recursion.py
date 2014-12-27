@@ -136,6 +136,13 @@ def reverse(lst):
     else:
         return [lst[-1]] + reverse(lst[: -1])
 
+def revlist(listsam):
+    ''' Another way of creating a reverse list '''
+    if len(listsam) == 1:
+        print listsam
+    else:
+        return [listsam.pop()]+ revlist(listsam[0:])
+
 
 def fibonacci(n):
     """Return the nth fibonacci number.
