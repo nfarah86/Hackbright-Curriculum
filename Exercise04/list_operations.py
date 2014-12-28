@@ -179,7 +179,6 @@ def custom_reverse_nonRecursive(input_list):
     maxValue = len(input_list)
     averageValue = (minValue + maxValue) / 2
     averageValue_even_list = (minValue + maxValue) / 2
-    iterateList = False
     count = 0
 
     while (count < maxValue/2):
