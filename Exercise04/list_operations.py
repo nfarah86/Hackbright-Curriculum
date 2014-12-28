@@ -194,17 +194,11 @@ def custom_reverse_nonRecursive(input_list):
         elif len(input_list) % 2 == 0:
             value_1 = input_list[averageValue_even_list]
             value_2 = input_list[averageValue - count]
-            print averageValue, "avg"
-
-
 
             input_list[averageValue_even_list] = value_2
             input_list[averageValue - count] = value_1
 
-            averageValue_even_list += 1
-            print input_list
-
-        
+            averageValue_even_list += 1     
 
     return input_list
    
