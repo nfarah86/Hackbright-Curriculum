@@ -166,11 +166,49 @@ def custom_count(input_list, value):
         if v == input_list[-1]:
             return k + 1
 
-def custom_reverse(input_list):
+def custom_reverse_recursive(input_list):
     """custom_reverse(input_list) imitates input_list.reverse()"""
-    #for k, v in enumerate(input_list):
+    if len(input_list) == 1:
+        return input_list
+    else:
+        return input_list.pop() + custom_reverse(input_list)
 
-    pass 
+def custom_reverse_nonRecursive(input_list):
+    """custom_reverse(input_list) imitates input_list.reverse()"""
+    minValue = 0
+    maxValue = len(input_list)
+    averageValue = (minValue + maxValue) / 2
+    averageValue_even_list = (minValue + maxValue) / 2
+    iterateList = False
+    count = 0
+
+    while (count < maxValue/2):
+        count += 1
+
+        if len(input_list) % 2 == 1:
+            value_1 = input_list[averageValue + count]
+            value_2 = input_list[averageValue - count]
+
+            input_list[averageValue + count] = value_2
+            input_list[averageValue - count] = value_1
+        
+        elif len(input_list) % 2 == 0:
+            value_1 = input_list[averageValue_even_list]
+            value_2 = input_list[averageValue - count]
+            print averageValue, "avg"
+
+
+
+            input_list[averageValue_even_list] = value_2
+            input_list[averageValue - count] = value_1
+
+            averageValue_even_list += 1
+            print input_list
+
+        
+
+    return input_list
+   
 
 def custom_contains(input_list, value):
     """custom_contains(input_list, value) imitates (value in input_list)"""
