@@ -78,7 +78,7 @@ class UnorderedList:
 		
 		previous = self.head
 		current = self.head
-		for i in range(index):  #ie range 5 = 0,1,2,3,4  (32,1,3,2,6)
+		for i in range(index):  #ie range 5 = [0,1,2,3,4]  (32,1,3,2,6)
 			previous = current  #previous = node current
 			current = current.getNext()
 		previous.setNext(current.getNext()) #set prevous ref. point to node6
@@ -95,6 +95,8 @@ class UnorderedList:
 
 		self.tail = previous
 		self.tail.next = None
+
+		return current.getData()
 
 	def remove(self,item):
 		current = self.head

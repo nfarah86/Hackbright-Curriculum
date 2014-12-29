@@ -24,5 +24,8 @@ class Test_stacksQueueDequeue(unittest.TestCase):
 		case2 = stacksQueueDequeue.checkMultipleTypesBrackets('()[')
 		self.assertFalse(case2)
 
+	def convertingIntToBinary(self):
+		case1 = stacksQueueDequeue.convertingIntToBinary('42')
+		self.assert
 if __name__ == '__main__':
 	unittest.main()
