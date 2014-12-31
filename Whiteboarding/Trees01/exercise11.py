@@ -52,5 +52,4 @@ def depth_first_traversal(node):
 tempBTN = BinaryTreeNode(3)
 tempBTN.insert_left("bob")
 tempBTN.insert_right("karen")
-#tempBTN.set_right("nadine")
 print_Tree(tempBTN)
