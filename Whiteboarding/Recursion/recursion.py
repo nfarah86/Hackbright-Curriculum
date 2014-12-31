@@ -186,6 +186,8 @@ def fibonacci(n):
     else:
         return fibonacci(n-1) + fibonacci(n-2)
 
+
+
 def find(lst, i):
     """Find item i in the list lst.
         
@@ -194,7 +196,7 @@ def find(lst, i):
         Use recursion to solve this.
         
         >>> find(["a", "b", "c"], "a")
-        'a'
+        'a' 
         
         >>> find(["a", "b", "c"], "c")
         'c'

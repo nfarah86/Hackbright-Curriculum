@@ -121,7 +121,7 @@ the test_list_operations.py file for concrete examples of expected behavior.
 def custom_len(input_list):
     """custom_len(input_list) imitates len(input_list)"""
     listTuples =  list(enumerate(input_list))
-    return listtuples[-1][0]
+    return listtuples[-1][0] #tuples , subtubple
 
 # For the next four functions, get clever using slice operations described in the first half
 def custom_append(input_list, value):
@@ -205,10 +205,19 @@ def custom_reverse_nonRecursive(input_list):
 
 def custom_contains(input_list, value):
     """custom_contains(input_list, value) imitates (value in input_list)"""
-    pass
+    for i in range(0, custom_len(input_list)):
+        if value == input_list[i]:
+            return True
+    return False
 
 def custom_equality(some_list, another_list):
     """custom_equality(some_list, another_list) imitates
     (some_list == another_list)
     """
-    pass
+    some_list_length = custom_len(some_list)
+    if some_list_length != custom_len(another_list):
+        return False
+    for i in range(0, some_list_length):
+        if some_list[i] != another_list[i]
+            return False
+    return True
