@@ -1,39 +1,61 @@
 class Stack():
-    def __init__(self):
-        self.item = []
+	def __init__(self):
+		self.item = []
 
-    def is_Empty(self):
-        return True if(len(self.item) == 0) else False
-            
-    def stack_top(self):
-        return self.item[-1]
+	def is_Empty(self):
+		return True if(len(self.item) == 0) else False
+			
+	def stack_top(self):
+		return self.item[-1]
 
-    def peek(self):
-        return self.item[len(self.item) - 1]
+	def peek(self):
+		return self.item[len(self.item) - 1]
 
-    def push_stack(self, ele):
-        self.item.append(ele)
+	def push_stack(self, ele):
+		self.item.append(ele)
 
-    def pop_stack(self):
-        return stack.pop()
+	def pop_stack(self):
+		return self.item.pop()
 
-    # def operator(self):
-    #     return 1 if opr in ["+","-","*","/","^","$"] else 0
+	def i_to_p(self, someString):
 
-    # def operand(self):
-    #     return 1 if(not(operator(self)) and (opr != "(") and (opr != ")")) else 0
+		prefixList = []
+
+		operators = {"+": 1, "-" : 1, "/" : 2, "*" : 2, "(" : 0, ")" : 0, " " : -1}
+		print operators
+
+		string_input_list = list(someString)
+		for i in reversed(someString):
+			if i not in operators:
+				prefixList.append(i)
+				print prefixList
+			elif i == ')': #closing brace
+				print temp2.is_Empty()
+				temp2.push_stack(i)
+				print temp2.is_Empty()
+			elif i =="(": #opening brace
+				print i, "print i ("
+				item_pop = temp2.pop_stack()
+				print item_pop, "because (, pop all stack"
+				while item_pop != ")": #closing brace
+					print item_pop, "first"
+					prefixList.append(item_pop)
+					print prefixList
+					print i
+					item_pop = temp2.pop_stack()
+					print item_pop
+					print "while"
+			else:
+				while(not temp2.is_Empty()) and (operators[temp2.peek()]) >= (operators[i]):
+					print i, "second"
+					prefixList.append(temp2.pop_stack())
+				temp2.push_stack(i)
 
 
-    # def precedence(self):
-    #     if((opr == "^") or (opr == "$")):return(7)
-    #     if(opr == "*"):return(7)
-    #     if(opr == "/"):return(7)
-    #     if(opr == "+"):return(4)
-    #     if(opr == "-"):return(4)
-    #     #if(opr == "("):return(2)
-    #     if(opr == ")"):return(1)
 
-# Re-working infix-->prefix...
+# if operators[temp2.peek()] > operators[i]
+# 	prefixList.append(item_pop)
+# 	item_pop = temp2.pop_stack()
 
 temp = Stack()
 temp.push_stack('3') 
@@ -42,50 +64,9 @@ temp.push_stack('+')
 print temp.peek()
 print temp.stack_top()
 print temp.is_Empty()
+print "this is the end of first half"
+print " "
+temp2 = Stack()
+temp2.i_to_p("(A+B)")
 
-#print temp.precedence()
 
-# def infix_to_prefix(infix_expression):
-#     print infix_expression
-#     prefix_list = []
-#     stack = []
-#     lst = list(infix_expression)
-#     lst = lst.reverse()
-#     #infix_expression = infix_expression[::-1]
-#     #infix_list = list(infix_expression)
-#     #print lst
-#     for i in lst:
-#         if operand(i):
-#             prefix_list.append(i)
-#         if operator(i):
-#             while((not(stack_empty(stack))) and (precedence(i) <= precedence(stack_top(stack)))):
-#                 push_stack(stack, i)
-
-#                 #prefix_list.append(stack_top(stack))
-#                 #pop_stack(stack)
-#                 #push_stack(stack,i)
-#         if(i == ")"):
-#             push_stack(stack,i)
-#         if(i == "("):
-#             while(stack_top(stack) != ")"):
-#                 append_operator = pop_stack(stack)
-#                 prefix_list.append(append_operator)
-#             pop_stack(stack)
-#     while(not(stack_empty(stack))):
-#         if(stack_top(stack) == ")"):
-#             pop_stack(stack)
-#         else:
-#             prefix_list.append(pop_stack(stack))
-#     #print prefix_list       
-#     prefix_expression = ''
-#     for val in prefix_list:
-#         prefix_expression += val
-
-#     return prefix_expression[::-1]
-
-# def main():
-#     infix_expression = raw_input('\nEnter A Valid Expression (0-9 A-Z a-z + - / * ^ $) : ')
-#     result = infix_to_prefix(infix_expression)
-#     print 'Prefix of given expression: ', result
-
-# main()
