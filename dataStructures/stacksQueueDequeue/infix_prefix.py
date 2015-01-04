@@ -17,17 +17,22 @@ class Stack():
 	def pop_stack(self):
 		return self.item.pop()
 
+	def print_stack(self):
+		print self.item
+
 	def i_to_p(self, someString):
 
 		prefixList = []
+		print prefixList.reverse()
 
 		operators = {"+": 1, "-" : 1, "/" : 2, "*" : 2, "(" : 0, ")" : 0, " " : -1}
 		print operators
 
-		string_input_list = list(someString)
-		for i in reversed(someString):
-			if i not in operators:
-				prefixList.append(i)
+		string_input_list = list(someString) #list
+		for i in reversed(someString): #reverse list
+			print i, "for loop"
+			if i not in operators: #if it is a number
+				prefixList.append(i)  #add to the list
 				print prefixList
 			elif i == ')': #closing brace
 				print temp2.is_Empty()
@@ -44,12 +49,22 @@ class Stack():
 					print i
 					item_pop = temp2.pop_stack()
 					print item_pop
+					print temp2.is_Empty()
+					
 					print "while"
 			else:
-				while(not temp2.is_Empty()) and (operators[temp2.peek()]) >= (operators[i]):
+				while(not temp2.is_Empty()) and (operators[temp2.peek()]) > (operators[i]):
 					print i, "second"
 					prefixList.append(temp2.pop_stack())
 				temp2.push_stack(i)
+
+		item = temp2.pop_stack()
+		print item
+		prefixList.append(item)
+		print temp2.is_Empty()
+		prefixList.reverse()
+		print prefixList
+		return prefixList
 
 
 
@@ -67,6 +82,6 @@ print temp.is_Empty()
 print "this is the end of first half"
 print " "
 temp2 = Stack()
-temp2.i_to_p("(A+B)")
+temp2.i_to_p("(A+B+G)*(C+D)*(E+F)")
 
 
