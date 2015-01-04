@@ -62,11 +62,15 @@ class Stack():
 		print item
 		prefixList.append(item)
 		print temp2.is_Empty()
+		item = temp2.pop_stack()
+		print item
+		print temp2.is_Empty()
 		prefixList.reverse()
 		print prefixList
 		return prefixList
 
 
+#add another while loop to clear the stack if the signs are =, and last sign remaining
 
 # if operators[temp2.peek()] > operators[i]
 # 	prefixList.append(item_pop)
